@@ -28,6 +28,9 @@ export function Banner() {
         transition={{ duration: 0.5, delay: bannerLines.length * 0.1 + 0.2 }}
         className="text-terminal-primary space-y-0 text-sm leading-relaxed"
       >
+        <div style={{ marginBottom: 10 }} className="text-orange-400">
+          Software Engineer | Cybersecurity Enthusiast
+        </div>
         <div>
           Type <span className="text-terminal-command">'help'</span> for a list
           of all available commands.
