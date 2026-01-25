@@ -33,7 +33,7 @@ export function Terminal() {
         if (outputRef.current) {
           outputRef.current.scrollTo({
             top: outputRef.current.scrollHeight,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         }
       }, 100);
@@ -172,7 +172,11 @@ export function Terminal() {
           onClick={handleTerminalClick}
           className="flex-1 bg-terminal-bg text-terminal-primary font-mono text-sm overflow-hidden flex flex-col cursor-text"
         >
-          <TerminalOutput lines={lines} showBanner={showBanner} outputRef={outputRef} />
+          <TerminalOutput
+            lines={lines}
+            showBanner={showBanner}
+            outputRef={outputRef}
+          />
           <TerminalInput
             value={currentInput}
             onChange={handleInputChange}

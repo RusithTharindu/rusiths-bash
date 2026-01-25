@@ -8,9 +8,24 @@ interface TerminalOutputProps {
   outputRef: React.RefObject<HTMLDivElement | null>;
 }
 
-export function TerminalOutput({ lines, showBanner, outputRef }: TerminalOutputProps) {
+export function TerminalOutput({
+  lines,
+  showBanner,
+  outputRef,
+}: TerminalOutputProps) {
   return (
-    <div ref={outputRef} className="flex-1 overflow-y-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8">
+    <div
+      ref={outputRef}
+      style={{
+        flex: "1 1 0%",
+        overflowY: "auto",
+        paddingLeft: "2rem",
+        paddingRight: "2rem",
+        paddingTop: "2rem",
+        paddingBottom: "2rem",
+        scrollBehavior: "smooth",
+      }}
+    >
       {showBanner && <Banner />}
       <div>
         {lines.map((line, index) => (

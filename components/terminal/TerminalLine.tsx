@@ -27,7 +27,12 @@ export function TerminalLine({ line, index = 0 }: TerminalLineProps) {
 
   return (
     <StreamingLine delay={index * 0.05}>
-      <div className={`${line.type === 'command' ? 'mt-4' : ''} leading-relaxed ${getLineClass()}`}>
+      <div
+        className={`leading-relaxed ${getLineClass()}`}
+        style={{
+          marginTop: line.type === 'command' ? '1rem' : '0.5rem'
+        }}
+      >
         {line.type === "command" && (
           <span className="select-none">
             <span className="text-terminal-username">Rusith</span>
