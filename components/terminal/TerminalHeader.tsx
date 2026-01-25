@@ -12,7 +12,10 @@ export function TerminalHeader({ title = "" }: TerminalHeaderProps) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="bg-terminal-border text-black px-4 py-2 flex items-center justify-between border-b-2 border-terminal-border"
+      className="bg-terminal-border text-black flex items-center justify-between border-b-2 border-terminal-border"
+      style={{
+        padding: 4,
+      }}
     >
       <div className="flex items-center gap-2">
         <div className="flex gap-1.5">

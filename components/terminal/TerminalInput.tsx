@@ -14,11 +14,18 @@ export function TerminalInput({
   inputRef,
 }: TerminalInputProps) {
   return (
-    <div className="flex items-center px-4 sm:px-6 md:px-8 pb-6 pt-4">
+    <div
+      className="flex items-center"
+      style={{
+        paddingRight: "2rem",
+        paddingBottom: "1.5rem",
+        paddingTop: "1rem",
+      }}
+    >
       <div className="flex-shrink-0 select-none">
-        <span className="text-terminal-username">Rusith</span>
+        <span className="text-terminal-username">guest</span>
         <span className="text-terminal-username">@</span>
-        <span className="text-terminal-hostname">Rusith</span>
+        <span className="text-terminal-hostname">RusithTharindu</span>
         <span className="text-terminal-command"> </span>
         <span className="text-terminal-platform">MINGW64</span>
         <span className="text-terminal-command"> </span>
@@ -26,8 +33,8 @@ export function TerminalInput({
         <span className="text-terminal-command"> </span>
         <span className="text-terminal-branch">(master)</span>
       </div>
-      <div className="flex items-center ml-1">
-        <span className="text-terminal-command select-none mr-2">$ </span>
+      <div className="flex items-center">
+        <span className="text-terminal-command select-none">$ </span>
         <input
           ref={inputRef}
           type="text"
@@ -38,6 +45,9 @@ export function TerminalInput({
           spellCheck={false}
           autoComplete="off"
           autoFocus
+          style={{
+            marginLeft: 5,
+          }}
         />
       </div>
     </div>

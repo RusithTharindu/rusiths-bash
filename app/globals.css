@@ -30,6 +30,7 @@ body {
   background: #000000;
   color: #e0e1dd;
   font-family: var(--font-mono);
+  line-height: 1.6;
   overflow: hidden;
 }
 
