@@ -1,24 +1,52 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-terminal-bg: #0a0e1a;
-  --color-terminal-primary: #00d9ff;
-  --color-terminal-secondary: #7dd3fc;
-  --color-terminal-success: #00ff9f;
+@theme {
+  --color-terminal-bg: #000000;
+  --color-terminal-border: #d4a574;
+  --color-terminal-username: #16c60c;
+  --color-terminal-hostname: #16c60c;
+  --color-terminal-platform: #e64dce;
+  --color-terminal-path: #f9f1a5;
+  --color-terminal-branch: #13a5c9;
+  --color-terminal-command: #ffffff;
+  --color-terminal-banner: #ff6b35;
+  --color-terminal-primary: #e0e1dd;
+  --color-terminal-link: #4cc9f0;
+  --color-terminal-muted: #8b8c89;
   --color-terminal-error: #ff5555;
-  --color-terminal-muted: #64748b;
-  --font-mono: ui-monospace, "Fira Code", "Cascadia Code", Consolas, Monaco, monospace;
+  --color-terminal-success: #00ff9f;
+  --font-mono:
+    ui-monospace, "Fira Code", "Cascadia Code", Consolas, Monaco, monospace;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #0a0e1a;
-  color: #00d9ff;
+  background: #000000;
+  color: #e0e1dd;
   font-family: var(--font-mono);
   overflow: hidden;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d4a574;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c49564;
 }

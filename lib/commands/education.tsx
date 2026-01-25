@@ -5,21 +5,23 @@ export function educationCommand(): CommandResult {
   const { education } = portfolioConfig;
 
   const content = (
-    <div className="space-y-4">
-      <div className="text-terminal-success font-bold">Education</div>
-      {education.map((edu, index) => (
-        <div key={index} className="border-l-2 border-terminal-primary pl-4">
-          <div className="text-terminal-primary font-semibold">{edu.degree}</div>
-          <div className="text-terminal-secondary">
-            {edu.institution} • <span className="text-terminal-muted">{edu.period}</span>
-          </div>
-          {edu.description && (
-            <div className="text-terminal-secondary mt-2 text-sm">
-              {edu.description}
+    <div>
+      <div className="text-terminal-banner font-bold mb-2">Education</div>
+      <div className="space-y-2">
+        {education.map((edu, index) => (
+          <div key={index} className="border-l-2 border-terminal-muted/30 pl-3">
+            <div className="text-terminal-command font-semibold">{edu.degree}</div>
+            <div className="text-terminal-primary text-sm">
+              <span className="text-terminal-banner">{edu.institution}</span> • <span className="text-terminal-muted">{edu.period}</span>
             </div>
-          )}
-        </div>
-      ))}
+            {edu.description && (
+              <div className="text-terminal-primary mt-1.5 text-sm leading-relaxed">
+                {edu.description}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 

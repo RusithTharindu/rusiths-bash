@@ -7,6 +7,7 @@ import { getTabCompletion } from "@/lib/utils/tabCompletion";
 import { executeCommand, getAvailableCommands } from "@/lib/commands";
 import { TerminalOutput } from "./TerminalOutput";
 import { TerminalInput } from "./TerminalInput";
+import { TerminalHeader } from "./TerminalHeader";
 
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLineType[]>([]);
@@ -17,6 +18,7 @@ export function Terminal() {
 
   const inputRef = useRef<HTMLInputElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
+  const outputRef = useRef<HTMLDivElement>(null);
 
   // Auto-focus input on mount and after each command
   useEffect(() => {
@@ -25,8 +27,16 @@ export function Terminal() {
 
   // Auto-scroll to bottom when new lines are added
   useEffect(() => {
-    if (terminalRef.current) {
-      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    if (outputRef.current) {
+      // Use setTimeout to ensure DOM has updated
+      setTimeout(() => {
+        if (outputRef.current) {
+          outputRef.current.scrollTo({
+            top: outputRef.current.scrollHeight,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
   }, [lines]);
 
@@ -35,7 +45,10 @@ export function Terminal() {
     inputRef.current?.focus();
   };
 
-  const addLine = (type: TerminalLineType["type"], content: TerminalLineType["content"]) => {
+  const addLine = (
+    type: TerminalLineType["type"],
+    content: TerminalLineType["content"],
+  ) => {
     const newLine: TerminalLineType = {
       id: Date.now().toString() + Math.random(),
       type,
@@ -151,18 +164,23 @@ export function Terminal() {
   };
 
   return (
-    <div
-      ref={terminalRef}
-      onClick={handleTerminalClick}
-      className="h-screen w-screen bg-terminal-bg text-terminal-primary font-mono text-sm overflow-hidden flex flex-col cursor-text"
-    >
-      <TerminalOutput lines={lines} showBanner={showBanner} />
-      <TerminalInput
-        value={currentInput}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
-        inputRef={inputRef}
-      />
+    <div className="h-screen w-screen bg-terminal-bg flex items-center justify-center p-2 sm:p-4 md:p-6">
+      <div className="w-full h-full max-w-7xl flex flex-col border-2 sm:border-4 border-terminal-border rounded-lg overflow-hidden shadow-2xl shadow-terminal-border/20">
+        <TerminalHeader />
+        <div
+          ref={terminalRef}
+          onClick={handleTerminalClick}
+          className="flex-1 bg-terminal-bg text-terminal-primary font-mono text-sm overflow-hidden flex flex-col cursor-text"
+        >
+          <TerminalOutput lines={lines} showBanner={showBanner} outputRef={outputRef} />
+          <TerminalInput
+            value={currentInput}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            inputRef={inputRef}
+          />
+        </div>
+      </div>
     </div>
   );
 }
