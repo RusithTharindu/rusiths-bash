@@ -36,7 +36,7 @@ export function Banner() {
           Type <span className="text-terminal-command">'repo'</span> to view the
           GitHub repository or click{" "}
           <a
-            href="https://github.com/RusithTharindu/rusith-console"
+            href="https://github.com/RusithTharindu/rusiths-bash"
             target="_blank"
             rel="noopener noreferrer"
             className="text-terminal-link hover:underline"
