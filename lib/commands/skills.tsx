@@ -5,18 +5,20 @@ export function skillsCommand(): CommandResult {
   const { skills } = portfolioConfig;
 
   const content = (
-    <div className="space-y-3">
-      <div className="text-terminal-success font-bold">Technical Skills</div>
-      {skills.map((category, index) => (
-        <div key={index}>
-          <div className="text-terminal-primary font-semibold mb-1">
-            {category.category}:
+    <div>
+      <div className="text-terminal-banner font-bold mb-2">Technical Skills</div>
+      <div className="space-y-1">
+        {skills.map((category, index) => (
+          <div key={index}>
+            <div className="text-terminal-command font-semibold">
+              {category.category}:
+            </div>
+            <div className="text-terminal-primary pl-3 text-sm">
+              {category.skills.join(" • ")}
+            </div>
           </div>
-          <div className="text-terminal-secondary pl-4">
-            {category.skills.join(" • ")}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 

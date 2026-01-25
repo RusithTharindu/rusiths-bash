@@ -8,6 +8,7 @@ import { experienceCommand } from "./experience";
 import { educationCommand } from "./education";
 import { resumeCommand } from "./resume";
 import { socialCommand } from "./social";
+import { repoCommand } from "./repo";
 import { clearCommand } from "./clear";
 
 export const commands: Record<string, Command> = {
@@ -55,6 +56,11 @@ export const commands: Record<string, Command> = {
     name: "resume",
     description: "Download my resume",
     execute: () => resumeCommand(),
+  },
+  repo: {
+    name: "repo",
+    description: "View the GitHub repository",
+    execute: () => repoCommand(),
   },
   clear: {
     name: "clear",

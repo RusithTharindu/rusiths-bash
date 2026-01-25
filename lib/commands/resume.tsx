@@ -13,14 +13,14 @@ export function resumeCommand(): CommandResult {
     <div className="space-y-2">
       {resumeUrl ? (
         <>
-          <div className="text-terminal-success">Opening resume...</div>
+          <div className="text-terminal-banner font-semibold">Opening resume...</div>
           <div className="text-terminal-muted text-sm">
             If the download didn't start,{" "}
             <a
               href={resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-terminal-primary hover:underline"
+              className="text-terminal-link hover:underline"
             >
               click here
             </a>
