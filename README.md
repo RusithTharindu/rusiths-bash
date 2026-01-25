@@ -113,12 +113,12 @@ Edit `app/globals.css` to customize colors:
 
 ```css
 @theme inline {
-  --color-terminal-bg: #0a0e1a;        /* Background */
-  --color-terminal-primary: #00d9ff;    /* Primary text */
-  --color-terminal-secondary: #7dd3fc;  /* Secondary text */
-  --color-terminal-success: #00ff9f;    /* Success messages */
-  --color-terminal-error: #ff5555;      /* Error messages */
-  --color-terminal-muted: #64748b;      /* Muted text */
+  --color-terminal-bg: #0a0e1a; /* Background */
+  --color-terminal-primary: #00d9ff; /* Primary text */
+  --color-terminal-secondary: #7dd3fc; /* Secondary text */
+  --color-terminal-success: #00ff9f; /* Success messages */
+  --color-terminal-error: #ff5555; /* Error messages */
+  --color-terminal-muted: #64748b; /* Muted text */
 }
 ```
 
@@ -198,6 +198,7 @@ The easiest way to deploy is using [Vercel](https://vercel.com):
 ### Other Platforms
 
 This is a standard Next.js application and can be deployed to:
+
 - Netlify
 - Railway
 - AWS Amplify
