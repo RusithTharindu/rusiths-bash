@@ -1,14 +1,16 @@
 import { CommandResult } from "@/lib/types/terminal";
 
 export function repoCommand(): CommandResult {
-  const repoUrl = "https://github.com/RusithTharindu/rusith-cli";
+  const repoUrl = "https://github.com/RusithTharindu/rusiths-bash";
 
   // Open repo in new tab
   window.open(repoUrl, "_blank");
 
   const content = (
     <div className="space-y-2">
-      <div className="text-terminal-banner font-semibold">Opening GitHub repository...</div>
+      <div className="text-terminal-banner font-semibold">
+        Opening GitHub repository...
+      </div>
       <div className="text-terminal-muted text-sm">
         If it didn't open,{" "}
         <a
