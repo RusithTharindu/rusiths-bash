@@ -3,24 +3,27 @@ import { CommandResult } from "@/lib/types/terminal";
 export function repoCommand(): CommandResult {
   const repoUrl = "https://github.com/RusithTharindu/rusiths-bash";
 
-  // Open repo in new tab
-  window.open(repoUrl, "_blank");
-
   const content = (
     <div className="space-y-2">
       <div className="text-terminal-banner font-semibold">
-        Opening GitHub repository...
+        GitHub Repository
       </div>
-      <div className="text-terminal-muted text-sm">
-        If it didn't open,{" "}
+      <div className="text-terminal-muted text-sm mt-2">
         <a
           href={repoUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="text-terminal-link hover:underline"
+          onClick={(e) => {
+            e.preventDefault();
+            window.open(repoUrl, "_blank", "noopener,noreferrer");
+          }}
         >
-          click here
+          {repoUrl}
         </a>
+      </div>
+      <div className="text-terminal-muted text-xs mt-1">
+        Click the link above to open in a new tab
       </div>
     </div>
   );
