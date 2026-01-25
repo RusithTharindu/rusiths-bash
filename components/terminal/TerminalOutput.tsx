@@ -5,7 +5,7 @@ import { Banner } from "../Banner";
 interface TerminalOutputProps {
   lines: TerminalLineType[];
   showBanner: boolean;
-  outputRef: React.RefObject<HTMLDivElement>;
+  outputRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export function TerminalOutput({ lines, showBanner, outputRef }: TerminalOutputProps) {
