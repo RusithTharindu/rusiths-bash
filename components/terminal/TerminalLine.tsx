@@ -1,37 +1,50 @@
+"use client";
+
 import { TerminalLine as TerminalLineType } from "@/lib/types/terminal";
+import { StreamingLine } from "./StreamingLine";
 
 interface TerminalLineProps {
   line: TerminalLineType;
+  index?: number;
 }
 
-export function TerminalLine({ line }: TerminalLineProps) {
+export function TerminalLine({ line, index = 0 }: TerminalLineProps) {
   const getLineClass = () => {
     switch (line.type) {
       case "command":
-        return "text-terminal-primary";
+        return "text-terminal-command";
       case "error":
         return "text-terminal-error";
       case "success":
         return "text-terminal-success";
       case "info":
-        return "text-terminal-secondary";
+        return "text-terminal-link";
       case "result":
       default:
-        return "text-terminal-secondary";
+        return "text-terminal-primary";
     }
   };
 
   return (
-    <div className={`mb-2 ${getLineClass()}`}>
-      {line.type === "command" && (
-        <span className="select-none">
-          <span className="text-terminal-success">user@portfolio</span>
-          <span className="text-terminal-muted">:</span>
-          <span className="text-terminal-primary">~</span>
-          <span className="text-terminal-muted">$ </span>
-        </span>
-      )}
-      <span>{line.content}</span>
-    </div>
+    <StreamingLine delay={index * 0.05}>
+      <div className={`${line.type === 'command' ? 'mt-4' : ''} leading-relaxed ${getLineClass()}`}>
+        {line.type === "command" && (
+          <span className="select-none">
+            <span className="text-terminal-username">Rusith</span>
+            <span className="text-terminal-username">@</span>
+            <span className="text-terminal-hostname">Rusith</span>
+            <span className="text-terminal-command"> </span>
+            <span className="text-terminal-platform">MINGW64</span>
+            <span className="text-terminal-command"> </span>
+            <span className="text-terminal-path">~/portfolio</span>
+            <span className="text-terminal-command"> </span>
+            <span className="text-terminal-branch">(master)</span>
+            <span className="text-terminal-command"> $ </span>
+            <span className="text-terminal-command">{line.content}</span>
+          </span>
+        )}
+        {line.type !== "command" && <span>{line.content}</span>}
+      </div>
+    </StreamingLine>
   );
 }
