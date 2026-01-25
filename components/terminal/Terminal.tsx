@@ -8,6 +8,7 @@ import { executeCommand, getAvailableCommands } from "@/lib/commands";
 import { TerminalOutput } from "./TerminalOutput";
 import { TerminalInput } from "./TerminalInput";
 import { TerminalHeader } from "./TerminalHeader";
+import { Banner } from "../Banner";
 
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLineType[]>([]);
@@ -172,17 +173,27 @@ export function Terminal() {
           onClick={handleTerminalClick}
           className="flex-1 bg-terminal-bg text-terminal-primary font-mono text-sm overflow-hidden flex flex-col cursor-text"
         >
-          <TerminalOutput
-            lines={lines}
-            showBanner={showBanner}
-            outputRef={outputRef}
-          />
-          <TerminalInput
-            value={currentInput}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-            inputRef={inputRef}
-          />
+          <div
+            ref={outputRef}
+            className="flex-1"
+            style={{
+              overflowY: "auto",
+              paddingLeft: "1rem",
+              paddingRight: "2rem",
+              paddingTop: "1rem",
+              paddingBottom: "2rem",
+              scrollBehavior: "smooth",
+            }}
+          >
+            {showBanner && <Banner />}
+            <TerminalOutput lines={lines} />
+            <TerminalInput
+              value={currentInput}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              inputRef={inputRef}
+            />
+          </div>
         </div>
       </div>
     </div>
