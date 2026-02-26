@@ -9,8 +9,8 @@ export function Banner() {
     .filter((line) => line.trim());
 
   return (
-    <div className="mb-6">
-      <pre className="text-terminal-banner text-xs sm:text-sm leading-tight mb-6">
+    <div className="mb-4 sm:mb-6">
+      <pre className="text-terminal-banner text-[10px] xs:text-xs sm:text-sm leading-tight mb-4 sm:mb-6 overflow-x-auto">
         {bannerLines.map((line, index) => (
           <motion.div
             key={index}
@@ -26,7 +26,7 @@ export function Banner() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: bannerLines.length * 0.1 + 0.2 }}
-        className="text-terminal-primary space-y-0 text-sm leading-relaxed"
+        className="text-terminal-primary space-y-1 text-xs sm:text-sm leading-relaxed"
       >
         <div style={{ marginBottom: 10 }} className="text-orange-400">
           Software Engineer | Cybersecurity Enthusiast

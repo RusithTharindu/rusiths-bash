@@ -6,6 +6,25 @@ export interface TerminalLine {
   id: string;
   type: LineType;
   content: ReactNode;
+  isStreaming?: boolean;
+  streamingSpeed?: number;
+  skipAnimation?: boolean;
+}
+
+export interface ContentSegment {
+  type: "text" | "break";
+  text: string;
+  startIndex: number;
+  endIndex: number;
+  className?: string;
+  href?: string;
+  isBlock?: boolean;
+  elementType?: string;
+}
+
+export interface StreamableContent {
+  segments: ContentSegment[];
+  totalLength: number;
 }
 
 export interface CommandResult {
