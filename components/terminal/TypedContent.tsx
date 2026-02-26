@@ -21,8 +21,8 @@ export function TypedContent({
 }: TypedContentProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const animationFrameRef = useRef<number>();
-  const startTimeRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
+  const startTimeRef = useRef<number | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
