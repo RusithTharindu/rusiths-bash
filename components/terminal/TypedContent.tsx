@@ -21,8 +21,8 @@ export function TypedContent({
 }: TypedContentProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
-  const animationFrameRef = useRef<number | undefined>(undefined);
-  const startTimeRef = useRef<number | undefined>(undefined);
+  const animationFrameRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,13 +63,14 @@ export function TypedContent({
 
     // Cleanup
     return () => {
-      if (animationFrameRef.current) {
+      if (animationFrameRef.current !== null) {
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
   }, [content, speed, onComplete, skip]);
 
   // Gentle auto-scroll - only update occasionally to avoid glitchiness
+  const scrollCheckpoint = Math.floor(currentIndex / 50);
   useEffect(() => {
     if (isComplete) return;
 
@@ -84,7 +85,7 @@ export function TypedContent({
     }, 100);
 
     return () => clearTimeout(scrollTimer);
-  }, [Math.floor(currentIndex / 50), isComplete]); // Only scroll every 50 characters
+  }, [scrollCheckpoint, isComplete]); // Only scroll every 50 characters
 
   const rendered = useMemo(
     () => reconstructContent(originalNode, currentIndex, !isComplete),

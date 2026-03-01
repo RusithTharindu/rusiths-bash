@@ -10,10 +10,29 @@ import { TerminalInput } from "./TerminalInput";
 import { TerminalHeader } from "./TerminalHeader";
 import { Banner } from "../Banner";
 
+const SESSION_HISTORY_KEY = "terminal_cv_history";
+
+function loadHistory(): string[] {
+  try {
+    const stored = sessionStorage.getItem(SESSION_HISTORY_KEY);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveHistory(history: string[]) {
+  try {
+    sessionStorage.setItem(SESSION_HISTORY_KEY, JSON.stringify(history));
+  } catch {
+    // sessionStorage unavailable (e.g. private mode) — fail silently
+  }
+}
+
 export function Terminal() {
   const [lines, setLines] = useState<TerminalLineType[]>([]);
   const [currentInput, setCurrentInput] = useState("");
-  const [commandHistory, setCommandHistory] = useState<string[]>([]);
+  const [commandHistory, setCommandHistory] = useState<string[]>(loadHistory);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const [showBanner, setShowBanner] = useState(true);
   const [streamingLineIds, setStreamingLineIds] = useState<Set<string>>(new Set());
@@ -22,7 +41,6 @@ export function Terminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
 
-  // Calculate if input should be disabled
   const isInputDisabled = streamingLineIds.size > 0;
 
   // Auto-focus input on mount and after streaming completes
@@ -35,7 +53,6 @@ export function Terminal() {
   // Auto-scroll to bottom when new lines are added
   useEffect(() => {
     if (outputRef.current) {
-      // Use setTimeout to ensure DOM has updated
       setTimeout(() => {
         if (outputRef.current) {
           outputRef.current.scrollTo({
@@ -57,11 +74,11 @@ export function Terminal() {
     content: TerminalLineType["content"],
   ) => {
     const newLine: TerminalLineType = {
-      id: Date.now().toString() + Math.random(),
+      id: crypto.randomUUID(),
       type,
       content,
       isStreaming: type === "result" || type === "error" || type === "success",
-      streamingSpeed: type === "error" ? 30 : type === "result" ? 50 : 50,
+      streamingSpeed: type === "error" ? 30 : 50,
       skipAnimation: type === "command",
     };
     setLines((prev) => [...prev, newLine]);
@@ -87,8 +104,12 @@ export function Terminal() {
       return;
     }
 
-    // Add command to history
-    setCommandHistory((prev) => [...prev, trimmedInput]);
+    // Add command to history and persist it
+    setCommandHistory((prev) => {
+      const updated = [...prev, trimmedInput];
+      saveHistory(updated);
+      return updated;
+    });
     setHistoryIndex(-1);
 
     // Display the command
@@ -102,7 +123,7 @@ export function Terminal() {
       setLines([]);
       setShowBanner(false);
       setCurrentInput("");
-      setStreamingLineIds(new Set()); // Clear streaming state
+      setStreamingLineIds(new Set());
       return;
     }
 
@@ -124,7 +145,6 @@ export function Terminal() {
     // Escape: Skip streaming or clear current input
     if (e.key === "Escape") {
       if (streamingLineIds.size > 0) {
-        // Skip all streaming animations
         setStreamingLineIds(new Set());
       } else {
         setCurrentInput("");
@@ -133,7 +153,7 @@ export function Terminal() {
       return;
     }
 
-    // Disable other keys during streaming
+    // Disable other keys during streaming (Escape handled above)
     if (streamingLineIds.size > 0) {
       return;
     }
@@ -141,9 +161,20 @@ export function Terminal() {
     // Tab: Auto-complete
     if (e.key === "Tab") {
       e.preventDefault();
-      const completion = getTabCompletion(currentInput, getAvailableCommands());
-      if (completion) {
-        setCurrentInput(completion);
+      const { completed, suggestions } = getTabCompletion(
+        currentInput,
+        getAvailableCommands(),
+      );
+      if (completed) {
+        setCurrentInput(completed);
+      } else if (suggestions.length > 1) {
+        // Show all possible completions as a result line
+        addLine(
+          "result",
+          <span className="text-terminal-muted">
+            {suggestions.join("    ")}
+          </span>,
+        );
       }
       return;
     }
@@ -184,18 +215,18 @@ export function Terminal() {
       return;
     }
 
-    // Ctrl+L: Clear terminal
+    // Ctrl+L: Clear terminal (consistent with clear command)
     if (e.ctrlKey && e.key === "l") {
       e.preventDefault();
       setLines([]);
       setShowBanner(false);
-      setStreamingLineIds(new Set()); // Clear streaming state
+      setCurrentInput("");
+      setStreamingLineIds(new Set());
       return;
     }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    // Disable input during streaming
     if (streamingLineIds.size > 0) {
       return;
     }
@@ -205,7 +236,7 @@ export function Terminal() {
   return (
     <div className="h-screen w-screen bg-terminal-bg flex items-center justify-center p-2 sm:p-4 md:p-6">
       <div className="w-full h-full max-w-7xl flex flex-col border-2 sm:border-4 border-terminal-border rounded-lg overflow-hidden shadow-2xl shadow-terminal-border/20">
-        <TerminalHeader />
+        <TerminalHeader title="guest@RusithTharindu — ~/portfolio" />
         <div
           ref={terminalRef}
           onClick={handleTerminalClick}
@@ -213,15 +244,8 @@ export function Terminal() {
         >
           <div
             ref={outputRef}
-            className="flex-1"
-            style={{
-              overflowY: "auto",
-              paddingLeft: "1rem",
-              paddingRight: "1rem",
-              paddingTop: "1rem",
-              paddingBottom: "2rem",
-              scrollBehavior: "smooth",
-            }}
+            className="flex-1 overflow-y-auto px-4 pt-4 pb-8"
+            style={{ scrollBehavior: "smooth" }}
           >
             {showBanner && <Banner />}
             <TerminalOutput
@@ -229,15 +253,14 @@ export function Terminal() {
               onStreamComplete={handleStreamComplete}
               streamingLineIds={streamingLineIds}
             />
-            {!isInputDisabled && (
-              <TerminalInput
-                value={currentInput}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                inputRef={inputRef}
-                disabled={isInputDisabled}
-              />
-            )}
+            {/* Always show the input — disable and dim it during streaming */}
+            <TerminalInput
+              value={currentInput}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              inputRef={inputRef}
+              disabled={isInputDisabled}
+            />
           </div>
         </div>
       </div>

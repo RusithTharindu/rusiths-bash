@@ -37,10 +37,10 @@ export function serializeContent(node: ReactNode): StreamableContent {
 
     if (React.isValidElement(node)) {
       const element = node as ReactElement;
-      const { children } = element.props;
+      const { children } = element.props as Record<string, unknown>;
 
       if (children) {
-        React.Children.forEach(children, (child) => traverse(child));
+        React.Children.forEach(children as ReactNode, (child) => traverse(child));
       }
       return;
     }
@@ -133,7 +133,7 @@ export function reconstructContent(
     // Handle React elements
     if (React.isValidElement(node)) {
       const element = node as ReactElement;
-      const { children, ...props } = element.props;
+      const { children, ...props } = element.props as Record<string, unknown>;
 
       if (!children) {
         return React.cloneElement(element, props);
@@ -141,7 +141,7 @@ export function reconstructContent(
 
       // Process children
       const newChildren: ReactNode[] = [];
-      React.Children.forEach(children, (child) => {
+      React.Children.forEach(children as ReactNode, (child) => {
         if (cursorAdded) return;
         const clonedChild = cloneWithLimit(child);
         if (clonedChild !== null && clonedChild !== undefined && clonedChild !== false) {

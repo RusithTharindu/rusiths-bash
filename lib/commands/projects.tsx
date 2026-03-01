@@ -8,8 +8,8 @@ export function projectsCommand(): CommandResult {
     <div>
       <div className="text-terminal-banner font-bold mb-2">My Projects</div>
       <div className="space-y-2">
-        {projects.map((project, index) => (
-          <div key={index} className="border-l-2 border-terminal-muted/30 pl-3">
+        {projects.map((project) => (
+          <div key={project.name} className="border-l-2 border-terminal-muted/30 pl-3">
             <div className="text-terminal-command font-semibold">{project.name}</div>
             <div className="text-terminal-primary mt-1 text-sm leading-relaxed">{project.description}</div>
             <div className="text-terminal-muted mt-1.5 text-sm">

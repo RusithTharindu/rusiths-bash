@@ -6,8 +6,9 @@ export const portfolioConfig: PortfolioConfig = {
   bio: "Hello World, I am Rusith. A Software Engineer from Sri Lanka.",
   location: "Sri Lanka",
   email: "rusiththarindu2@gmail.com",
-  phone: "+1 (555) 123-4567",
-  website: "https://yourwebsite.com",
+  phone: "+1 (555) 123-4567", // TODO: replace with your real phone number or remove
+  website: "https://yourwebsite.com", // TODO: replace with your real website URL or remove
+  repoUrl: "https://github.com/RusithTharindu/rusiths-bash", // TODO: update if repo is renamed
 
   banner: `
 ██████╗ ██╗   ██╗███████╗██╗████████╗██╗  ██╗
@@ -18,6 +19,7 @@ export const portfolioConfig: PortfolioConfig = {
 ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝   ╚═╝   ╚═╝  ╚═╝
   `,
 
+  // TODO: replace these example projects with your real projects
   projects: [
     {
       name: "E-Commerce Platform",
@@ -49,6 +51,7 @@ export const portfolioConfig: PortfolioConfig = {
     },
   ],
 
+  // TODO: replace these example jobs with your real work experience
   experience: [
     {
       title: "Senior Full Stack Developer",
@@ -82,6 +85,7 @@ export const portfolioConfig: PortfolioConfig = {
     },
   ],
 
+  // TODO: replace these example entries with your real education
   education: [
     {
       degree: "Bachelor of Science in Computer Science",

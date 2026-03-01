@@ -29,7 +29,7 @@ export function Banner() {
         className="text-terminal-primary space-y-1 text-xs sm:text-sm leading-relaxed"
       >
         <div style={{ marginBottom: 10 }} className="text-orange-400">
-          Software Engineer | Cybersecurity Enthusiast
+          {portfolioConfig.title}
         </div>
         <div>
           Type <span className="text-terminal-command">'help'</span> for a list
@@ -39,7 +39,7 @@ export function Banner() {
           Type <span className="text-terminal-command">'repo'</span> to view the
           GitHub repository or click{" "}
           <a
-            href="https://github.com/RusithTharindu/rusiths-bash"
+            href={portfolioConfig.repoUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-terminal-link hover:underline"

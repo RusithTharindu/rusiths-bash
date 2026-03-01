@@ -2,6 +2,7 @@
 
 import { TerminalLine as TerminalLineType } from "@/lib/types/terminal";
 import { StreamingLine } from "./StreamingLine";
+import { TerminalPrompt } from "./TerminalPrompt";
 
 interface TerminalLineProps {
   line: TerminalLineType;
@@ -48,22 +49,14 @@ export function TerminalLine({
       onStreamComplete={handleComplete}
     >
       <div
-        className={`leading-relaxed ${getLineClass()}`}
-        style={{
-          marginTop: line.type === "command" ? "1rem" : "0.5rem",
-        }}
+        className={`leading-relaxed ${getLineClass()} ${
+          line.type === "command" ? "mt-4" : "mt-2"
+        }`}
       >
         {line.type === "command" && (
           <div className="flex flex-wrap items-center gap-1">
-            <span className="select-none flex flex-wrap items-center gap-1">
-              <span className="text-terminal-username">guest</span>
-              <span className="text-terminal-username">@</span>
-              <span className="text-terminal-hostname">RusithTharindu</span>
-              <span className="text-terminal-platform hidden sm:inline">MINGW64</span>
-              <span className="text-terminal-path">~/portfolio</span>
-              <span className="text-terminal-branch">(master)</span>
-              <span className="text-terminal-command">$</span>
-            </span>
+            <TerminalPrompt />
+            <span className="text-terminal-command">$</span>
             <span className="text-terminal-command">{line.content}</span>
           </div>
         )}

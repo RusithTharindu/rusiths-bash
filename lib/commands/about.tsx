@@ -14,11 +14,11 @@ export function aboutCommand(): CommandResult {
           <span className="text-terminal-primary w-28 flex-shrink-0">Email</span>
           <a href={`mailto:${email}`} className="text-terminal-link hover:underline">{email}</a>
         </div>
-        {social.map((link, index) => (
-          <div key={index} className="flex">
+        {social.map((link) => (
+          <div key={link.platform} className="flex">
             <span className="text-terminal-primary w-28 flex-shrink-0">{link.platform}</span>
             <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-terminal-link hover:underline">
-              {link.handle?.replace('@', '')}
+              {link.handle}
             </a>
           </div>
         ))}

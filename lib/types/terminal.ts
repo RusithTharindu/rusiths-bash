@@ -80,6 +80,7 @@ export interface PortfolioConfig {
   email: string;
   phone?: string;
   website?: string;
+  repoUrl?: string;
   banner: string;
   projects: Project[];
   experience: Experience[];
