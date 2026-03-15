@@ -12,18 +12,15 @@ export function TerminalHeader({ title = "" }: TerminalHeaderProps) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="bg-terminal-border text-black flex items-center justify-between border-b-2 border-terminal-border"
-      style={{
-        padding: 4,
-      }}
+      className="bg-terminal-border text-black flex items-center justify-between border-b-2 border-terminal-border p-2 sm:p-3"
     >
       <div className="flex items-center gap-2">
-        <div className="flex gap-1.5">
-          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+        <div className="flex gap-1 sm:gap-1.5">
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-red-500"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-yellow-500"></div>
+          <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-500"></div>
         </div>
-        <span className="font-semibold text-sm ml-2">{title}</span>
+        <span className="font-semibold text-xs sm:text-sm ml-1 sm:ml-2">{title}</span>
       </div>
     </motion.div>
   );

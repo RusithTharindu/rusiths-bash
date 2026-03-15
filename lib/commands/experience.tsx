@@ -8,8 +8,8 @@ export function experienceCommand(): CommandResult {
     <div>
       <div className="text-terminal-banner font-bold mb-2">Work Experience</div>
       <div className="space-y-2">
-        {experience.map((job, index) => (
-          <div key={index} className="border-l-2 border-terminal-muted/30 pl-3">
+        {experience.map((job) => (
+          <div key={`${job.title}-${job.company}`} className="border-l-2 border-terminal-muted/30 pl-3">
             <div className="text-terminal-command font-semibold">{job.title}</div>
             <div className="text-terminal-primary text-sm">
               <span className="text-terminal-banner">{job.company}</span> • <span className="text-terminal-muted">{job.period}</span>

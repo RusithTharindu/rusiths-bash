@@ -13,6 +13,12 @@ export const metadata: Metadata = {
     "full stack",
   ],
   authors: [{ name: "Rusith Tharindu Thushan" }],
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
   openGraph: {
     title: "Rusith Tharindu Thushan | Terminal Portfolio",
     description:

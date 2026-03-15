@@ -1,11 +1,16 @@
+export interface TabCompletionResult {
+  completed: string | null;
+  suggestions: string[];
+}
+
 export function getTabCompletion(
   input: string,
   availableCommands: string[]
-): string | null {
+): TabCompletionResult {
   const trimmed = input.trim().toLowerCase();
 
   if (!trimmed) {
-    return null;
+    return { completed: null, suggestions: [] };
   }
 
   const matches = availableCommands.filter((cmd) =>
@@ -13,8 +18,12 @@ export function getTabCompletion(
   );
 
   if (matches.length === 1) {
-    return matches[0];
+    return { completed: matches[0], suggestions: [] };
   }
 
-  return null;
+  if (matches.length > 1) {
+    return { completed: null, suggestions: matches };
+  }
+
+  return { completed: null, suggestions: [] };
 }
